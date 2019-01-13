@@ -1,0 +1,19 @@
+html
+	head
+		meta(charset="utf-8")
+		meta(name='viewport', content='width=device-width, height=device-height, initial-scale=1.0, user-scalable=yes')
+		title Auth
+		link(rel="stylesheet" href="css/index.css")
+	body
+		form.col-md-4.mx-auto.pt-5
+			.form-group.row
+				label(for="username").col-sm-2.col-form-label Username
+				.col-sm-10
+					input#user.form-control(type="text")
+			.form-group.row
+				label(for="password").col-sm-2.col-form-label Password
+				.col-sm-10
+					input#pass.form-control(type="password")
+			button#auth(type="submit").btn.btn-primary.btn-block Sign in		
+		p#error
+	script(src="js/auth.js")

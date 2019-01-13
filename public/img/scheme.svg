@@ -1,0 +1,275 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="550" height="650" font-family="Arial" font-size="8pt" style="stroke:rgb(0,0,0);fill:rgb(0,0,0);stroke-width:2">
+    <line x1="200" x2="250" y1="390" y2="390"/>
+    <line x1="250" x2="250" y1="390" y2="190"/>
+    <line x1="20" x2="250" y1="190" y2="190"/>
+    <g id="generator">
+        <rect width="90" height="60" x="50" y="70" style="fill:white"/>
+        <svg width="90" height="60" x="50" y="70">
+            <text x="50%" y="50%" alignment-baseline="middle" style="stroke-width:1" text-anchor="middle">
+                ЛП/ПП
+            </text>
+        </svg>
+        <line x1="100" x2="100" y1="130" y2="170" />
+        <polygon points="95,170 105,170 100,180" />
+    </g>
+    <g style="stroke:rgba(0,0,0,0.7);fill:rgba(0,0,0,0.7)">
+        <line x1="10" x2="30" y1="190" y2="190"/>
+        <line x1="10" x2="30" y1="175" y2="190"/>
+        <line x1="10" x2="30" y1="205" y2="190"/>
+        <line x1="30" x2="150" y1="190" y2="190"/>
+        <polygon points="150,195 160,190 150,185"/>
+        <polygon points="160,210 200,190 160,170" style="fill:white"/>
+    </g>
+    <g style="stroke:rgba(0,0,0,0.7);fill:rgba(0,0,0,0.7)">
+        <line x1="10" x2="30" y1="390" y2="390"/>
+        <line x1="10" x2="30" y1="375" y2="390"/>
+        <line x1="10" x2="30" y1="405" y2="390"/>
+        <line x1="30" x2="150" y1="390" y2="390"/>
+        <polygon points="150,395 160,390 150,385"/>
+        <polygon points="160,410 200,390 160,370" style="fill:white"/>
+    </g>
+    <g style="stroke:rgba(0,0,0,0.7);fill:rgba(0,0,0,0.7)">
+        <line x1="90" x2="90" y1="380" y2="195"/>
+        <polygon points="85,380 95,380 90,390"/>
+        <polygon points="85,200 95,200 90,190"/>
+        <circle cx="180" cy="290" r="20" style="fill:white"/>
+        <svg width="20" height="20" x="170" y="281">
+            <text x="50%" y="50%" alignment-baseline="middle" style="stroke-width:1" text-anchor="middle">
+                ГШ
+            </text>
+        </svg>
+        <line x1="90" x2="160" y1="290" y2="290"/>
+    </g>
+    <line x1="250" x2="260" y1="290" y2="290"/>
+    <polygon points="260,295 270,290 260,285"/>
+    <g>
+        <rect width="70" height="40" x="270" y="270" fill="white"/>
+        <svg width="70" height="40" x="270" y="270">
+            <text x="50%" y="50%" alignment-baseline="middle" style="stroke-width:1" text-anchor="middle">
+                -15.5 dB
+            </text>
+        </svg>
+        <svg width="70" height="40" x="270" y="240">
+            <text x="50%" y="50%" alignment-baseline="middle" font-size="95%" style="stroke-width:1" text-anchor="middle">
+                Att0
+            </text>
+        </svg>
+        <svg width="70" height="40" x="270" y="305">
+            <text x="50%" y="50%" alignment-baseline="middle" font-size="75%" style="stroke-width:1" text-anchor="middle">
+                3.75-17.25 GHz
+            </text>
+        </svg>
+        <line x1="340" x2="350" y1="290" y2="290"/>
+        <line x1="350" x2="350" y1="50" y2="590"/>
+    </g>
+    <g id="17.25">
+        <line x1="350" x2="370" y1="50" y2="50"/>
+        <rect width="70" height="40" x="370" y="30" fill="white"/>
+        <svg width="70" height="40" x="370" y="30">
+            <text x="50%" y="50%" alignment-baseline="middle" style="stroke-width:1" text-anchor="middle">
+                -15.5 dB
+            </text>
+        </svg>
+        <svg width="70" height="40" x="370" y="60">
+            <text x="50%" y="50%" alignment-baseline="middle" style="stroke-width:1" text-anchor="middle">
+                17.25 GHz
+            </text>
+        </svg>
+        <line x1="440" x2="500" y1="50" y2="50"/>
+        <polygon points="500,55 510,50 500,45"/>
+        <svg width="70" height="40" x="435" y="20">
+            <text x="50%" y="50%" alignment-baseline="middle" style="stroke-width:1" text-anchor="middle">
+                Att1
+            </text>
+        </svg>
+    </g>
+    <g id="15.75">
+        <line x1="350" x2="370" y1="110" y2="110"/>
+        <rect width="70" height="40" x="370" y="90" fill="white"/>
+        <svg width="70" height="40" x="370" y="90">
+            <text x="50%" y="50%" alignment-baseline="middle" style="stroke-width:1" text-anchor="middle">
+                -15.5 dB
+            </text>
+        </svg>
+        <svg width="70" height="40" x="370" y="120">
+            <text x="50%" y="50%" alignment-baseline="middle" style="stroke-width:1" text-anchor="middle">
+                15.75 GHz
+            </text>
+        </svg>
+        <line x1="440" x2="500" y1="110" y2="110"/>
+        <polygon points="500,115 510,110 500,105"/>
+        <svg width="70" height="40" x="435" y="80">
+            <text x="50%" y="50%" alignment-baseline="middle" style="stroke-width:1" text-anchor="middle">
+                Att2
+            </text>
+        </svg>
+    </g>
+    <g id="14.25">
+        <line x1="350" x2="370" y1="170" y2="170"/>
+        <rect width="70" height="40" x="370" y="150" fill="white"/>
+        <svg width="70" height="40" x="370" y="150">
+            <text x="50%" y="50%" alignment-baseline="middle" style="stroke-width:1" text-anchor="middle">
+                -15.5 dB
+            </text>
+        </svg>
+        <svg width="70" height="40" x="370" y="180">
+            <text x="50%" y="50%" alignment-baseline="middle" style="stroke-width:1" text-anchor="middle">
+                14.25 GHz
+            </text>
+        </svg>
+        <line x1="440" x2="500" y1="170" y2="170"/>
+        <polygon points="500,175 510,170 500,165"/>
+        <svg width="70" height="40" x="435" y="140">
+            <text x="50%" y="50%" alignment-baseline="middle" style="stroke-width:1" text-anchor="middle">
+                Att3
+            </text>
+        </svg>
+    </g>
+    <g id="12.75">
+        <line x1="350" x2="370" y1="230" y2="230"/>
+        <rect width="70" height="40" x="370" y="210" fill="white"/>
+        <svg width="70" height="40" x="370" y="210">
+            <text x="50%" y="50%" alignment-baseline="middle" style="stroke-width:1" text-anchor="middle">
+                -15.5 dB
+            </text>
+        </svg>
+        <svg width="70" height="40" x="370" y="240">
+            <text x="50%" y="50%" alignment-baseline="middle" style="stroke-width:1" text-anchor="middle">
+                12.75 GHz
+            </text>
+        </svg>
+        <line x1="440" x2="500" y1="230" y2="230"/>
+        <polygon points="500,235 510,230 500,225"/>
+        <svg width="70" height="40" x="435" y="200">
+            <text x="50%" y="50%" alignment-baseline="middle" style="stroke-width:1" text-anchor="middle">
+                Att4
+            </text>
+        </svg>
+    </g>
+    <g id="11.25">
+        <line x1="350" x2="370" y1="290" y2="290"/>
+        <rect width="70" height="40" x="370" y="270" fill="white"/>
+        <svg width="70" height="40" x="370" y="270">
+            <text x="50%" y="50%" alignment-baseline="middle" style="stroke-width:1" text-anchor="middle">
+                -15.5 dB
+            </text>
+        </svg>
+        <svg width="70" height="40" x="370" y="300">
+            <text x="50%" y="50%" alignment-baseline="middle" style="stroke-width:1" text-anchor="middle">
+                11.25 GHz
+            </text>
+        </svg>
+        <line x1="440" x2="500" y1="290" y2="290"/>
+        <polygon points="500,295 510,290 500,285"/>
+        <svg width="70" height="40" x="435" y="260">
+            <text x="50%" y="50%" alignment-baseline="middle" style="stroke-width:1" text-anchor="middle">
+                Att5
+            </text>
+        </svg>
+    </g>
+    <g id="9.75">
+        <line x1="350" x2="370" y1="350" y2="350"/>
+        <rect width="70" height="40" x="370" y="330" fill="white"/>
+        <svg width="70" height="40" x="370" y="330">
+            <text x="50%" y="50%" alignment-baseline="middle" style="stroke-width:1" text-anchor="middle">
+                -15.5 dB
+            </text>
+        </svg>
+        <svg width="70" height="40" x="370" y="360">
+            <text x="50%" y="50%" alignment-baseline="middle" style="stroke-width:1" text-anchor="middle">
+                9.75 GHZ
+            </text>
+        </svg>
+        <line x1="440" x2="500" y1="350" y2="350"/>
+        <polygon points="500,355 510,350 500,345"/>
+        <svg width="70" height="40" x="435" y="320">
+            <text x="50%" y="50%" alignment-baseline="middle" style="stroke-width:1" text-anchor="middle">
+                Att6
+            </text>
+        </svg>
+    </g>
+    <g id="8.25">
+        <line x1="350" x2="370" y1="410" y2="410"/>
+        <rect width="70" height="40" x="370" y="390" fill="white"/>
+        <svg width="70" height="40" x="370" y="390">
+            <text x="50%" y="50%" alignment-baseline="middle" style="stroke-width:1" text-anchor="middle">
+                -15.5 dB
+            </text>
+        </svg>
+        <svg width="70" height="40" x="370" y="420">
+            <text x="50%" y="50%" alignment-baseline="middle" style="stroke-width:1" text-anchor="middle">
+                8.25 GHz
+            </text>
+        </svg>
+        <line x1="440" x2="500" y1="410" y2="410"/>
+        <polygon points="500,415 510,410 500,405"/>
+        <svg width="70" height="40" x="435" y="380">
+            <text x="50%" y="50%" alignment-baseline="middle" style="stroke-width:1" text-anchor="middle">
+                Att7
+            </text>
+        </svg>
+    </g>
+    <g id="6.75">
+        <line x1="350" x2="370" y1="470" y2="470"/>
+        <rect width="70" height="40" x="370" y="450" fill="white"/>
+        <svg width="70" height="40" x="370" y="450">
+            <text x="50%" y="50%" alignment-baseline="middle" style="stroke-width:1" text-anchor="middle">
+                -15.5 dB
+            </text>
+        </svg>
+        <svg width="70" height="40" x="370" y="480">
+            <text x="50%" y="50%" alignment-baseline="middle" style="stroke-width:1" text-anchor="middle">
+                6.75 GHz
+            </text>
+        </svg>
+        <line x1="440" x2="500" y1="470" y2="470"/>
+        <polygon points="500,475 510,470 500,465"/>
+        <svg width="70" height="40" x="435" y="440">
+            <text x="50%" y="50%" alignment-baseline="middle" style="stroke-width:1" text-anchor="middle">
+                Att8
+            </text>
+        </svg>
+    </g>
+    <g id="5.25">
+        <line x1="350" x2="370" y1="530" y2="530"/>
+        <rect width="70" height="40" x="370" y="510" fill="white"/>
+        <svg width="70" height="40" x="370" y="510">
+            <text x="50%" y="50%" alignment-baseline="middle" style="stroke-width:1" text-anchor="middle">
+                -15.5 dB
+            </text>
+        </svg>
+        <svg width="70" height="40" x="370" y="540">
+            <text x="50%" y="50%" alignment-baseline="middle" style="stroke-width:1" text-anchor="middle">
+                5.25 GHz
+            </text>
+        </svg>
+        <line x1="440" x2="500" y1="530" y2="530"/>
+        <polygon points="500,535 510,530 500,525"/>
+        <svg width="70" height="40" x="435" y="500">
+            <text x="50%" y="50%" alignment-baseline="middle" style="stroke-width:1" text-anchor="middle">
+                Att9
+            </text>
+        </svg>
+    </g>
+    <g id="3.75">
+        <line x1="350" x2="370" y1="590" y2="590"/>
+        <rect width="70" height="40" x="370" y="570" fill="white"/>
+        <svg width="70" height="40" x="370" y="570">
+            <text x="50%" y="50%" alignment-baseline="middle" style="stroke-width:1" text-anchor="middle">
+                -15.5 dB
+            </text>
+        </svg>
+        <svg width="70" height="40" x="370" y="600">
+            <text x="50%" y="50%" alignment-baseline="middle" style="stroke-width:1" text-anchor="middle">
+                3.75 GHz
+            </text>
+        </svg>
+        <line x1="440" x2="500" y1="590" y2="590"/>
+        <polygon points="500,595 510,590 500,585"/>
+        <svg width="70" height="40" x="435" y="560">
+            <text x="50%" y="50%" alignment-baseline="middle" style="stroke-width:1" text-anchor="middle">
+                Att10
+            </text>
+        </svg>
+    </g>
+</svg>
