@@ -3,7 +3,7 @@ document.getElementById('syncRange').addEventListener('change', () => {
 })
 
 window.onload = () => {
-    document.querySelectorAll("#att").forEach(function(item, i) {
+    document.querySelectorAll("#att").forEach(function (item, i) {
         document.querySelectorAll("#lbl")[i].value = item.value
     })
 }
@@ -39,36 +39,76 @@ function sortOnKeys(dict) {
 
 let socket = null;
 
-function getJSON(url, success, error) {
-    const xhr = new XMLHttpRequest();
-    xhr.onreadystatechange = function () {
-        if (xhr.readyState === 4) {
-            if (xhr.status === 200) {
-                success(JSON.parse(xhr.responseText));
-            } else {
-                error(xhr.responseText);
-            }
-        }
-    }
-    xhr.open('GET', url);
-    xhr.send();
-};
-
 document.getElementById('getBtn').addEventListener("click", function () {
-    getJSON('/get', function (data) {
-        JSON.parse(data).data.forEach(function (item, i) {
+    const svgContent = document.getElementById("scheme").contentDocument;
+    fetch('/get', {method: 'GET'}).then(function(res) {
+        return res.json()
+    }).then(function(data) {
+        const jsonData = JSON.parse(data);
+        jsonData.data.forEach(function (item, i) {
             document.getElementById("att" + i).value = item;
             document.getElementById("lbl" + i).value = item;
+            svgContent.getElementById(`el${i}`).innerHTML = `${item} db`
         }, this);
-        JSON.parse(data).status.forEach(function (item, i) {
+        jsonData.status.forEach(function (item, i) {
             document.querySelectorAll('input[type=checkbox]')[i].checked = item;
         });
-        document.getElementById('syncRange').value = JSON.parse(data).syncRange;
-        document.getElementById('syncRangeLbl').value = JSON.parse(data).syncRange
-    });
+        document.getElementById('syncRange').value = jsonData.syncRange;
+        document.getElementById('syncRangeLbl').value = jsonData.syncRange;
+        svgContent.getElementById("main").style.stroke = "rgb(150,150,150)"
+        if (jsonData.status[0]) {
+            for (let i = 0; i < 11; i++) {
+                svgContent.getElementById("att" + i).style.stroke = "#0f0";
+            }
+            svgContent.getElementById("ng").style.stroke = "#0f0";
+            if (jsonData.status[1]) {
+                svgContent.getElementById("rp").style.stroke = "#0f0"
+                svgContent.getElementById("lp").style.stroke = "rgb(150,150,150)"
+            } else {
+                svgContent.getElementById("lp").style.stroke = "#0f0"
+                svgContent.getElementById("rp").style.stroke = "rgb(150,150,150)"
+            }
+        }
+        else if (jsonData.status[2]) {
+            for (let i = 0; i < 11; i++) {
+                svgContent.getElementById("att" + i).style.stroke = "#ffa500";
+            }
+            svgContent.getElementById("ng").style.stroke = "#ffa500";
+            if (jsonData.status[3]) {
+                svgContent.getElementById("rp").style.stroke = "#ffa500"
+                svgContent.getElementById("lp").style.stroke = "rgb(150,150,150)"
+            } else {
+                svgContent.getElementById("lp").style.stroke = "#ffa500"
+                svgContent.getElementById("rp").style.stroke = "rgb(150,150,150)"
+            }
+        }
+        else if (jsonData.status[0] && jsonData.status[2]) {
+            if (jsonData.status[3]) {
+                svgContent.getElementById("rp").style.stroke = "#ffa500"
+                svgContent.getElementById("lp").style.stroke = "rgb(150,150,150)"
+            } else {
+                svgContent.getElementById("lp").style.stroke = "#ffa500"
+                svgContent.getElementById("rp").style.stroke = "rgb(150,150,150)"
+            }
+            if (jsonData.status[1]) {
+                svgContent.getElementById("rp").style.stroke = "#0f0"
+                svgContent.getElementById("lp").style.stroke = "rgb(150,150,150)"
+            } else {
+                svgContent.getElementById("lp").style.stroke = "#0f0"
+                svgContent.getElementById("rp").style.stroke = "rgb(150,150,150)"
+            }
+        }
+        else {
+            for (let i = 0; i < 11; i++) {
+                svgContent.getElementById("att" + i).style.stroke = "rgb(150,150,150)";
+            }
+            svgContent.getElementById("ng").style.stroke = "rgb(150,150,150)";
+            svgContent.getElementById("rp").style.stroke = "rgb(150,150,150)"
+            svgContent.getElementById("lp").style.stroke = "rgb(150,150,150)"
+        }
+    })
 });
 document.getElementById('sendBtn').addEventListener("click", function () {
-    const xhr = new XMLHttpRequest();
     data = []
     document.querySelectorAll('[id*=att]').forEach(function (item, i) {
         data.push(item.value);
@@ -77,9 +117,7 @@ document.getElementById('sendBtn').addEventListener("click", function () {
         data.push(item.checked);
     });
     data.push(document.getElementById('syncRange').value);
-    xhr.open("POST", '/send', true);
-    xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-    xhr.send(JSON.stringify({ data: data }));
+    fetch('/send', {method: 'POST', headers: {"Content-Type": "application/json;charset=UTF-8"}, body: JSON.stringify({ data: data })})
 });
 function delChannel(e) {
     document.getElementById("item" + e.id).remove();
@@ -157,59 +195,56 @@ window.onresize = () => {
 
 
 document.getElementById("channelsOk").addEventListener("click", function (e) {
-    const xhr = new XMLHttpRequest();
-    xhr.onreadystatechange = () => {
-        if (xhr.readyState === XMLHttpRequest.DONE) {
-            if (xhr.status === 200) {
-
-            } else {
-                console.log(JSON.parse(xhr.responseText))
-            }
-        }
-    }
-
-    xhr.open("POST", '/openConnection', true)
-    xhr.setRequestHeader("Content-Type", "application/json");
-    xhr.send(JSON.stringify({
-        channels: document.getElementById("channels").value.split(";"),
-        maxX: parseInt(document.getElementById('maxX').value)
-    }));
-    // if (chart) chart.destroy()
-    const ctx = document.getElementById("chart").getContext("2d")
-    chart = initChart(ctx, parseInt(document.getElementById('maxX').value))
-    document.getElementById("channels").value.split(";").forEach(channel => {
-        chart.data.datasets.push({
-            label: 'Channel ' + channel,
-            fill: false,
-            borderColor: randomColorGenerator(),
-            data: [],
-        });
-    });
-    socket = io.connect('http://localhost:3000');
-    socket.on('connect', () => {
-        let tick = 0;
-        socket.on('message', (msg) => {
-            msg.coords.forEach((coord, index) => {
-                chart.data.datasets[index].data.push(coord);
-                tick++;
-                if (tick == 10) { 
-                    tick = 0; 
-                    chart.update(); 
-                    if (chart.data.datasets[0].data.length >= parseInt(document.getElementById('maxX').value)) {
-                        chart.data.labels.forEach((item, i) => { chart.data.labels[i] += 1 })                     
-                    }
-                }
-
+    if (document.getElementById("channelsOk").innerHTML == "Start") {
+        document.getElementById("channelsOk").innerHTML = "Stop"
+        fetch("/openConnection", {
+            headers: {
+                "Content-Type": "application/json"
+            },
+            method: "POST",
+            body: JSON.stringify({
+                channels: document.getElementById("channels").value.split(";"),
+                maxX: parseInt(document.getElementById('maxX').value)
             })
         })
-    });
+        const ctx = document.getElementById("chart").getContext("2d")
+        chart = initChart(ctx, parseInt(document.getElementById('maxX').value))
+        document.getElementById("channels").value.split(";").forEach(channel => {
+            chart.data.datasets.push({
+                label: 'Channel ' + channel,
+                fill: false,
+                borderColor: randomColorGenerator(),
+                data: [],
+            });
+        });
+        socket = io.connect('http://localhost:3000');
+        socket.on('connect', () => {
+            let tick = 0;
+            socket.on('message', (msg) => {
+                msg.coords.forEach((coord, index) => {
+                    chart.data.datasets[index].data.push(coord);
+                    tick++;
+                    if (tick == 10) {
+                        tick = 0;
+                        chart.update();
+                        if (chart.data.datasets[0].data.length >= parseInt(document.getElementById('maxX').value)) {
+                            chart.data.labels.forEach((item, i) => { chart.data.labels[i] += 1 })
+                        }
+                    }
+
+                })
+            })
+        });
+    }
+    else {
+        socket.disconnect()
+        document.getElementById("channelsOk").innerHTML = "Start"
+    }
+
 }, false);
 
 
 document.getElementById('logout').addEventListener('click', () => {
-    if (socket) socket.disconnect();
-    const xhr = new XMLHttpRequest();
-    xhr.open('GET', '/logout');
-    xhr.send();
-    window.location = '/'
+    fetch('/logout', { method: 'GET', credentials: 'include', redirect: 'follow' })
+    location.reload()
 })

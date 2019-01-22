@@ -1,13 +1,9 @@
 const dgram = require('dgram')
 import { createWriteStream } from "fs";
-const zfill = require('zfill');
 import { websocketPort } from '../etc/config.json';
-
-let stream = null;
+let io = null;
 let udpServer = null;
-
-const io = require('socket.io').listen(websocketPort);
-io.set('log level', 1)
+let stream = null;
 
 const createFile = (user, channels) => {
     const fileName = `logs/${new Date().toLocaleString()}_${user}.txt`;
@@ -22,16 +18,18 @@ const createFile = (user, channels) => {
 }
 module.exports = (app) => {
     app.post('/openConnection', (req, res) => {
-        if (stream) stream.close();
-        if (udpServer) udpServer.close();
-        stream = createFile(req.cookies.user, req.body['channels'])
-        res.cookie('filename', stream.path, { path: '/' })
-        udpServer = dgram.createSocket("udp4")
-        udpServer.on("error", (err) => {
-            udpServer.close()
+        io = require('socket.io')(websocketPort, {
+            path: '/',
+            serveClient: false,
+            cookie: false
         })
-
-        io.sockets.on('connection', socket => {
+        stream = createFile(req.cookies.user, req.body['channels'])
+        io.sockets.on('connection', (socket) => {
+            udpServer = dgram.createSocket("udp4")
+            udpServer.on("listening", () => {
+                const address = udpServer.address()
+                console.log(`Server listening on ${address.address}:${address.port}`)
+            })
             udpServer.on("message", (msg, rinfo) => {
                 let arr = []
                 req.body['channels'].forEach(channel => {
@@ -39,29 +37,29 @@ module.exports = (app) => {
                 });
                 socket.json.send({ "coords": Array.from(arr, elem => { return elem }) })
                 stream.write(`${arr.join('\t')}\n`);
+            });
+            udpServer.on("error", (err) => {
+                udpServer.close()
             })
-        })
-
-        udpServer.on('close', () => {
-            console.log('Client UDP socket closed : BYE!')
-        });
-        udpServer.on("listening", () => {
-            const address = udpServer.address()
-            console.log(`Server listening on ${address.address}:${address.port}`)
-        })
-        try {
+            udpServer.on('close', () => {
+                if (io) io.close();
+                if (stream) stream.close();
+                console.log('Client UDP socket closed : BYE!')
+            });
             udpServer.bind(1519, '127.0.0.1')
-        }
-        catch (err) {
-            udpServer.close()
-            res.status(500).json({ "status": "Невозможно подключиться к серверу" })
-        }
+            socket.on('disconnect', () => {
+                udpServer.close()
+                if (stream) stream.close()
+            })
+
+        })
+        res.status(200).json({ "status": "Connection opened!" })
     });
 
 
     app.get('/get', (req, res) => {
         const { PythonShell } = require('python-shell')
-        PythonShell.run('./scripts/getData.py',null, function (err, data) {
+        PythonShell.run('./scripts/getData.py', null, function (err, data) {
             if (err) console.log(err)
             const correctedData = data[0].split("'").join('"').split("False").join('false').split("True").join("true")
             res.status(200).json(correctedData)
@@ -81,10 +79,10 @@ module.exports = (app) => {
     });
 
     app.get('/logout', (req, res) => {
-        if (stream) stream.close();
-        if (udpServer) udpServer.close();
-        res.clearCookie('user', { path: '/' });
-        res.clearCookie('filename', { path: '/' });
-        res.status(200).json({ "status": "success" });
+        res.clearCookie("user", {path: "/", domain: 'localhost'});
+        req.session.destroy()
+        res.clearCookie("io");
+        res.clearCookie("__cf_bm");
+        res.redirect('/auth', 301)
     });
 }

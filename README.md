@@ -1,3 +1,3 @@
 # sspk
 
-Web application for RATAN-600 radiometric complex data analysis.
+Radiotelescope data analysis and visualization for solar radiometric complex app 

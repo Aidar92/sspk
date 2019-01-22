@@ -1,16 +1,11 @@
 import fs from 'fs';
 import _ from 'lodash';
-const dgram = require('dgram')
-
-let stream = null;
-let udpServer = null
-
-
 
 module.exports = (app) => {
     app.get('/auth', (req, res) => {
         if (req.cookies.user) {
             res.redirect('/');
+            res.end()
         }
         res.render('auth');
     });
@@ -29,7 +24,7 @@ module.exports = (app) => {
                 res.status(200).json({"status": "Authorization success!"})           
                 
             } else {
-                res.status(401).json({ "status": "Неверное имя пользователя или пароль" });
+                res.status(401).json({ "status": "Wrong username or password!" });
             }
         })
     });   
