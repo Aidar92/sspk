@@ -58,7 +58,7 @@ document.getElementById('getBtn').addEventListener("click", function () {
         svgContent.getElementById("main").style.stroke = "rgb(150,150,150)"
         if (jsonData.status[0]) {
             for (let i = 0; i < 11; i++) {
-                svgContent.getElementById("att" + i).style.stroke = "#0f0";
+                svgContent.getElementById("att" + i).style.stroke = "#000";
             }
             svgContent.getElementById("ng").style.stroke = "#0f0";
             if (jsonData.status[1]) {
@@ -71,7 +71,7 @@ document.getElementById('getBtn').addEventListener("click", function () {
         }
         else if (jsonData.status[2]) {
             for (let i = 0; i < 11; i++) {
-                svgContent.getElementById("att" + i).style.stroke = "#ffa500";
+                svgContent.getElementById("att" + i).style.stroke = "#000";
             }
             svgContent.getElementById("ng").style.stroke = "#ffa500";
             if (jsonData.status[3]) {
@@ -105,6 +105,10 @@ document.getElementById('getBtn').addEventListener("click", function () {
             svgContent.getElementById("ng").style.stroke = "rgb(150,150,150)";
             svgContent.getElementById("rp").style.stroke = "rgb(150,150,150)"
             svgContent.getElementById("lp").style.stroke = "rgb(150,150,150)"
+        }
+        let text = svgContent.getElementsByTagName("text")
+        for (let i = 0; i < text.length; i++) {
+            text[i].style.stroke = "#000"
         }
     })
 });

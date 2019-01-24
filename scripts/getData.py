@@ -1,13 +1,23 @@
 import sys
 import socket
+import json
 
+port = 0
+host = ''
+state = 0
+with open("etc/config.json", "r") as f:
+    data = json.load(f)
+    port = data["sendPort"]
+    host = data["host"]
+    state = data["state"]
+    getPort = data["getPort"]
 resSock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-resSock.bind(('127.0.0.1', 1530))
+resSock.bind((host, getPort))
 result = []
 setState = bytearray(16)
 setState[0] = 1
-setState[4:7] = (1530).to_bytes(4, byteorder='little')
-resSock.sendto(setState, ('127.0.0.1', 1517))
+setState[4:7] = (getPort).to_bytes(4, byteorder='little')
+resSock.sendto(setState, (host, state))
 
 recieve = [bin(x)[2::].zfill(8) for x in resSock.recv(1024)]
 resSock.close()

@@ -2,6 +2,14 @@ import sys
 import socket
 import json
 
+port = 0
+host = ''
+state = 0
+with open("etc/config.json", "r") as f:
+    data = json.load(f)
+    port = data["sendPort"]
+    host = data["host"]
+    state = data["state"]
 res = json.loads(sys.argv[1])["data"]
 data = [int(x) for x in res[1:-5]]
 bytes_ = [[0,0],[0,0],[0,0],[0,0],[0,0],0,0,0]
@@ -55,8 +63,8 @@ result[-3] = int(''.join(tmp), 2)
 result[-1] = abs(int((float(res[0])+15.5)*2))
 setState = bytearray(16)
 setState[0] = 3
-setState[4:7] = (1517).to_bytes(4, byteorder='little')
+setState[4:7] = (state).to_bytes(4, byteorder='little')
 setState[8::] = result
 
 sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-sock.sendto(setState, ('127.0.0.1', 1517))
+sock.sendto(setState, (host,port))

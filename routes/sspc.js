@@ -1,6 +1,6 @@
 const dgram = require('dgram')
 import { createWriteStream } from "fs";
-import { websocketPort } from '../etc/config.json';
+import { websocketPort, plotPort, host } from '../etc/config.json';
 let io = null;
 let udpServer = null;
 let stream = null;
@@ -46,7 +46,7 @@ module.exports = (app) => {
                 if (stream) stream.close();
                 console.log('Client UDP socket closed : BYE!')
             });
-            udpServer.bind(1519, '127.0.0.1')
+            udpServer.bind(plotPort, host)
             socket.on('disconnect', () => {
                 udpServer.close()
                 if (stream) stream.close()
