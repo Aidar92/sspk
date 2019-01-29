@@ -18,11 +18,8 @@
   },
   "homepage": "https://github.com/Aidar92/sao-server#readme",
   "dependencies": {
-    "axios": "^0.17.1",
     "body-parser": "^1.18.2",
     "bootstrap": "*",
-    "chart.js": "^2.7.2",
-    "chartjs": "^0.3.24",
     "cookie-parser": "^1.4.3",
     "cors": "^2.8.4",
     "dgram": "^1.0.1",
@@ -35,8 +32,7 @@
     "pug": "^2.0.0-rc.4",
     "python-shell": "^1.0.7",
     "socket.io": "^2.1.1",
-    "websocket": "^1.0.26",
-    "zfill": "0.0.2"
+    "websocket": "^1.0.26"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
