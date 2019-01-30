@@ -3,13 +3,13 @@ import socket
 import json
 
 port = 0
-host = ''
+sendHost = ''
 state = 0
 with open("etc/config.json", "r") as f:
     data = json.load(f)
     port = data["sendPort"]
-    host = data["host"]
-    state = data["state"]
+    sendHost = data["sendHost"]
+    state = data["statePort"]
 res = json.loads(sys.argv[1])["data"]
 data = [int(x) for x in res[1:-5]]
 bytes_ = [[0,0],[0,0],[0,0],[0,0],[0,0],0,0,0]
@@ -67,4 +67,4 @@ setState[4:7] = (state).to_bytes(4, byteorder='little')
 setState[8::] = result
 
 sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-sock.sendto(setState, (host,port))
+sock.sendto(setState, (sendHost,port))

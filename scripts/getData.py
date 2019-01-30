@@ -3,22 +3,23 @@ import socket
 import json
 
 port = 0
-host = ''
+getHost = ''
 state = 0
+sendHost = ''
 with open("etc/config.json", "r") as f:
     data = json.load(f)
     port = data["sendPort"]
-    host = data["host"]
-    state = data["state"]
+    getHost = data["getHost"]
+    sendHost = data["sendHost"]
+    state = data["statePort"]
     getPort = data["getPort"]
 resSock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-resSock.bind((host, getPort))
+resSock.bind((getHost, getPort))
 result = []
 setState = bytearray(16)
 setState[0] = 1
 setState[4:7] = (getPort).to_bytes(4, byteorder='little')
-resSock.sendto(setState, (host, state))
-
+resSock.sendto(setState, (sendHost, state))
 recieve = [bin(x)[2::].zfill(8) for x in resSock.recv(1024)]
 resSock.close()
 tmp = [[x[4::], x[0:4]] for x in recieve[8::]]
