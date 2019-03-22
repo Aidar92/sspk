@@ -80,7 +80,7 @@ module.exports = (app) => {
 
     app.get('/logout', (req, res) => {
         res.clearCookie("user", {path: "/", domain: 'localhost'});
-        req.session.destroy()
+        if (req.session) req.session.destroy()
         res.clearCookie("io");
         res.clearCookie("__cf_bm");
         res.redirect('/auth', 301)

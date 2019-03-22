@@ -41,9 +41,9 @@ let socket = null;
 
 document.getElementById('getBtn').addEventListener("click", function () {
     const svgContent = document.getElementById("scheme").contentDocument;
-    fetch('/get', {method: 'GET'}).then(function(res) {
+    fetch('/get', { method: 'GET' }).then(function (res) {
         return res.json()
-    }).then(function(data) {
+    }).then(function (data) {
         const jsonData = JSON.parse(data);
         jsonData.data.forEach(function (item, i) {
             document.getElementById("att" + i).value = item;
@@ -56,56 +56,54 @@ document.getElementById('getBtn').addEventListener("click", function () {
         document.getElementById('syncRange').value = jsonData.syncRange;
         document.getElementById('syncRangeLbl').value = jsonData.syncRange;
         svgContent.getElementById("main").style.stroke = "rgb(150,150,150)"
-        if (jsonData.status[0]) {
-            for (let i = 0; i < 11; i++) {
-                svgContent.getElementById("att" + i).style.stroke = "#000";
-            }
-            svgContent.getElementById("ng").style.stroke = "#0f0";
-            if (jsonData.status[1]) {
-                svgContent.getElementById("rp").style.stroke = "#0f0"
-                svgContent.getElementById("lp").style.stroke = "rgb(150,150,150)"
-            } else {
-                svgContent.getElementById("lp").style.stroke = "#0f0"
-                svgContent.getElementById("rp").style.stroke = "rgb(150,150,150)"
-            }
+        svgContent.getElementById("lp").style.stroke = "rgb(150,150,150)"
+        svgContent.getElementById("rp").style.stroke = "rgb(150,150,150)"
+        for (let i = 0; i < 11; i++) {
+            svgContent.getElementById("att" + i).style.stroke = "#0f0";
         }
-        else if (jsonData.status[2]) {
-            for (let i = 0; i < 11; i++) {
-                svgContent.getElementById("att" + i).style.stroke = "#000";
-            }
-            svgContent.getElementById("ng").style.stroke = "#ffa500";
-            if (jsonData.status[3]) {
-                svgContent.getElementById("rp").style.stroke = "#ffa500"
-                svgContent.getElementById("lp").style.stroke = "rgb(150,150,150)"
-            } else {
-                svgContent.getElementById("lp").style.stroke = "#ffa500"
-                svgContent.getElementById("rp").style.stroke = "rgb(150,150,150)"
-            }
+        if (jsonData.status[3]) { // если включена правая поляризация антенны
+            svgContent.getElementById("rp").style.stroke = "#0f0"
+            svgContent.getElementById("lp").style.stroke = "rgb(150,150,150)"
+            
+        } else { // если включена левая поляризация антенны
+            svgContent.getElementById("lp").style.stroke = "#0f0"
+            svgContent.getElementById("rp").style.stroke = "rgb(150,150,150)"
         }
-        else if (jsonData.status[0] && jsonData.status[2]) {
-            if (jsonData.status[3]) {
-                svgContent.getElementById("rp").style.stroke = "#ffa500"
-                svgContent.getElementById("lp").style.stroke = "rgb(150,150,150)"
-            } else {
-                svgContent.getElementById("lp").style.stroke = "#ffa500"
-                svgContent.getElementById("rp").style.stroke = "rgb(150,150,150)"
+        if (jsonData.status[0]) { // если включен ГШ 
+            svgContent.getElementById("ng").style.stroke = "#e5f442";
+            for (let i = 0; i < 11; i++) {
+                svgContent.getElementById("att" + i).style.stroke = "#e5f442";
             }
-            if (jsonData.status[1]) {
-                svgContent.getElementById("rp").style.stroke = "#0f0"
-                svgContent.getElementById("lp").style.stroke = "rgb(150,150,150)"
-            } else {
-                svgContent.getElementById("lp").style.stroke = "#0f0"
-                svgContent.getElementById("rp").style.stroke = "rgb(150,150,150)"
+            if (jsonData.status[1]) { // если включена первая правая поляризация
+                svgContent.getElementById("rNg").style.stroke = "#e5f442"
+                svgContent.getElementById("lNg").style.stroke = "rgb(150,150,150)"
+                for (let i = 0; i < 11; i++) {
+                    svgContent.getElementById("att" + i).style.stroke = "#0f0";
+                }
+            } else { // если включена первая левая поляризация
+                svgContent.getElementById("lNg").style.stroke = "#e5f442"
+                svgContent.getElementById("rNg").style.stroke = "rgb(150,150,150)"
+                for (let i = 0; i < 11; i++) {
+                    svgContent.getElementById("att" + i).style.stroke = "#0f0";
+                }
             }
         }
         else {
-            for (let i = 0; i < 11; i++) {
-                svgContent.getElementById("att" + i).style.stroke = "rgb(150,150,150)";
-            }
             svgContent.getElementById("ng").style.stroke = "rgb(150,150,150)";
-            svgContent.getElementById("rp").style.stroke = "rgb(150,150,150)"
-            svgContent.getElementById("lp").style.stroke = "rgb(150,150,150)"
+            svgContent.getElementById("rNg").style.stroke = "rgb(150,150,150)";
+            svgContent.getElementById("lNg").style.stroke = "rgb(150,150,150)";
         }
+        if (jsonData.status[2]) { // если включена модуляция
+            svgContent.getElementById("md").style.stroke = "#e5f442"
+            svgContent.getElementById("rp").style.stroke = "#e5f442"
+            svgContent.getElementById("lp").style.stroke = "#e5f442"
+            for (let i = 0; i < 11; i++) {
+                svgContent.getElementById("att" + i).style.stroke = "#e5f442";
+            }
+        } else {
+            svgContent.getElementById("md").style.stroke = "rgb(150,150,150)"
+        }
+
         let text = svgContent.getElementsByTagName("text")
         for (let i = 0; i < text.length; i++) {
             text[i].style.stroke = "#000"
@@ -121,7 +119,7 @@ document.getElementById('sendBtn').addEventListener("click", function () {
         data.push(item.checked);
     });
     data.push(document.getElementById('syncRange').value);
-    fetch('/send', {method: 'POST', headers: {"Content-Type": "application/json;charset=UTF-8"}, body: JSON.stringify({ data: data })})
+    fetch('/send', { method: 'POST', headers: { "Content-Type": "application/json;charset=UTF-8" }, body: JSON.stringify({ data: data }) })
 });
 function delChannel(e) {
     document.getElementById("item" + e.id).remove();
